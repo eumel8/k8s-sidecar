@@ -26,4 +26,4 @@ jobs:
           platforms: linux/amd64
           tags: |
             ghcr.io/eumel8/k8s-sidecar:latest
-            ghcr.io/eumel8/k8s-sidecar:${{ steps.tagging.outputs.tag }}
+            ghcr.io/eumel8/k8s-sidecar:1.29.0
