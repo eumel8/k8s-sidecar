@@ -20,5 +20,6 @@ COPY --from=builder /app /app
 ENV PATH="/app/.venv/bin:$PATH"
 # Use the nobody user's numeric UID/GID to satisfy MustRunAsNonRoot PodSecurityPolicies
 # https://kubernetes.io/docs/concepts/policy/pod-security-policy/#users-and-groups
+#
 USER        65534:65534
 CMD         [ "python", "-u", "/app/sidecar.py" ]
