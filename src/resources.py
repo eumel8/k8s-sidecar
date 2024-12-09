@@ -20,6 +20,19 @@ from helpers import (CONTENT_TYPE_BASE64_BINARY, CONTENT_TYPE_TEXT,
                      remove_file, request, unique_filename, write_data_to_file)
 from logger import get_logger
 
+import logging
+
+# Ensure logging is configured
+logging.basicConfig(level=logging.DEBUG)
+
+# Debug information
+logging.debug(f"Namespace: {namespace}")
+logging.debug(f"Resource: {resource}")
+logging.debug(f"Method path in _list_namespace: {_list_namespace[namespace][resource]}")
+logging.debug(f"Available methods in v1: {dir(v1)}")
+
+
+
 RESOURCE_SECRET = "secret"
 RESOURCE_CONFIGMAP = "configmap"
 
@@ -113,8 +126,13 @@ def list_resources(label, label_value, target_folder, request_url, request_metho
 
     print(f"Attempting to list resource for namespace: {namespace}, resource: {resource}")
     print(f"Resource method: {_list_namespace[namespace][resource]}")
-    
-    ret = getattr(v1, _list_namespace[namespace][resource])(**additional_args)
+
+                     # Proceed with the getattr call
+    try:
+        ret = getattr(v1, _list_namespace[namespace][resource])(**additional_args)
+    except AttributeError as e:
+        logging.error(f"Error while accessing method: {e}")
+        raise
 
     files_changed = False
     exist_keys = set()
