@@ -111,6 +111,9 @@ def list_resources(label, label_value, target_folder, request_url, request_metho
 
     logger.info(f"Performing list-based sync on {resource} resources: {additional_args}")
 
+    print(f"Attempting to list resource for namespace: {namespace}, resource: {resource}")
+    print(f"Resource method: {_list_namespace[namespace][resource]}")
+    
     ret = getattr(v1, _list_namespace[namespace][resource])(**additional_args)
 
     files_changed = False
