@@ -22,14 +22,7 @@ from logger import get_logger
 
 import logging
 
-# Ensure logging is configured
-logging.basicConfig(level=logging.DEBUG)
 
-# Debug information
-logging.debug(f"Namespace: {namespace}")
-logging.debug(f"Resource: {resource}")
-logging.debug(f"Method path in _list_namespace: {_list_namespace[namespace][resource]}")
-logging.debug(f"Available methods in v1: {dir(v1)}")
 
 
 
@@ -122,6 +115,14 @@ def list_resources(label, label_value, target_folder, request_url, request_metho
     if namespace != "ALL":
         additional_args['namespace'] = namespace
 
+                     # Ensure logging is configured
+    logging.basicConfig(level=logging.DEBUG)
+
+    # Debug information
+    logging.debug(f"Namespace: {namespace}")
+    logging.debug(f"Resource: {resource}")
+    logging.debug(f"Method path in _list_namespace: {_list_namespace[namespace][resource]}")
+    logging.debug(f"Available methods in v1: {dir(v1)}")
     logger.info(f"Performing list-based sync on {resource} resources: {additional_args}")
 
     print(f"Attempting to list resource for namespace: {namespace}, resource: {resource}")
